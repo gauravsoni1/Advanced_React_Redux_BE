@@ -1,0 +1,19 @@
+# Dependencies
+
+# yarn error logs
+yarn-error.log
+
+# Environment varibales
+.env*
+!.env*.example
+
+# Code coverage
+coverage
+
+dist/
+
+node_modules/
+
+src/config/config.ts
+
+.vscode/
