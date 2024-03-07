@@ -26,6 +26,6 @@ export class UserController {
   }
 
   async signin(req, res) {
-    res.send('User will be signed in');
+    res.send('User will be signed in automatically');
   }
 }
