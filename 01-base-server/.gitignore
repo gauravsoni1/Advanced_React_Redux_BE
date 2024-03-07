@@ -1,4 +1,5 @@
 # Dependencies
+.DS_Store
 
 # yarn error logs
 yarn-error.log
