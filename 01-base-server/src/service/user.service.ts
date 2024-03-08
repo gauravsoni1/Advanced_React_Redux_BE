@@ -1,5 +1,4 @@
 import { UserProvider } from '../provider/user.provider';
-import { encryptPassword } from '../utility/shared';
 
 export class UserService {
   private _userProvider: UserProvider;
@@ -13,7 +12,6 @@ export class UserService {
 
   async signUp(username: string, password: string) {
     try {
-      const hashedPassword = encryptPassword(password);
 
       const existingUser = await this.userProvider.findUserByUsername(username);
 
@@ -21,7 +19,7 @@ export class UserService {
         throw new Error('User already exist');
       }
 
-      const response = this.userProvider.signUp(username, hashedPassword);
+      const response = this.userProvider.signUp(username, password);
       return response;
     } catch (error) {
       throw error?.message || error;
