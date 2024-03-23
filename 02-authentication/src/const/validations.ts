@@ -3,7 +3,7 @@ import * as joi from 'joi';
 export const schemaValidation = (schema: joi.ObjectSchema<any>, data: Record<string, any>) => {
   const { error } = schema.validate(data);
   if (error) {
-    throw error?.details;
+    throw error;
   }
 };
 
