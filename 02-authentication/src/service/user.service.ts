@@ -1,5 +1,6 @@
 import { UserProvider } from '../provider/user.provider';
 import * as bcrypt from 'bcrypt';
+import { CustomError, ErrorMap } from '../utility/customError';
 
 export class UserService {
   private _userProvider: UserProvider;
@@ -16,13 +17,17 @@ export class UserService {
     return encryptedPassword
   }
 
+  validatePassword(password: string, hashedPassword: string) {
+    return bcrypt.compareSync(password, hashedPassword);
+  }
+
   async signUp(username: string, password: string) {
     try {
 
       const existingUser = await this.userProvider.findUserByUsername(username);
 
       if (existingUser) {
-        throw new Error('User already exist');
+        throw new CustomError(ErrorMap.USER_EXIST);
       }
 
       const encryptedPassword = this.encryptPassword(password);
@@ -30,7 +35,26 @@ export class UserService {
       const response = this.userProvider.signUp(username, encryptedPassword);
       return response;
     } catch (error) {
-      throw error?.message || error;
+      throw error;
+    }
+  }
+
+  async signIn(username: string, password: string) {
+    try {
+
+      const existingUser = await this.userProvider.findUserByUsername(username);
+
+      if (!existingUser) {
+        throw new CustomError(ErrorMap.INVALID_SIGNIN);
+      }
+      const isPasswordValid = this.validatePassword(password, existingUser.userPassword);
+
+      if (!isPasswordValid) {
+        throw new CustomError(ErrorMap.INVALID_SIGNIN);
+      }
+      return "Valid Signin";
+    } catch (error) {
+      throw error;
     }
   }
 }
