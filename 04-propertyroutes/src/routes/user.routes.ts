@@ -9,6 +9,7 @@ export class UserRoutes {
 
     this.router.post('/signup', userController.signup.bind(userController));
     this.router.post('/signin', userController.signin.bind(userController));
+    this.router.get("/token/refresh/:refresh_token", userController.refreshToken.bind(userController))
 
     return this.router;
   }

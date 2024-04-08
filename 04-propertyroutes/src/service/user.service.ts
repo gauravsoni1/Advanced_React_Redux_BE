@@ -1,7 +1,9 @@
+import sharedConfig from '../config/shared.config';
+import { User } from '../model/User';
 import { UserProvider } from '../provider/user.provider';
 
 import { CustomError, ErrorMap } from '../utility/customError';
-import { encryptPassword, generateJwt, validatePassword } from '../utility/shared';
+import { encryptPassword, generateJwt, getTokenData, isTokenValid, validatePassword } from '../utility/shared';
 
 export class UserService {
   private _userProvider: UserProvider;
@@ -33,6 +35,24 @@ export class UserService {
     }
   }
 
+  private generateAuthToken(existingUser: User) {
+    return generateJwt({
+      usr_id: existingUser.userEmail
+    }, {
+      issuer: sharedConfig.jwt.issuer,
+      expiresIn: '1m'
+    });
+  }
+
+  private generateRefreshToken(existingUser: User) {
+    return generateJwt({
+      usr_id: existingUser.userEmail
+    }, {
+      issuer: sharedConfig.jwt.issuer,
+      expiresIn: '1h'
+    });
+  }
+
   async signIn(username: string, password: string) {
     try {
 
@@ -47,22 +67,39 @@ export class UserService {
         throw new CustomError(ErrorMap.INVALID_SIGNIN);
       }
 
-      const jwtToken = generateJwt({
-        usr_id: existingUser.userEmail
-      }, {
-        issuer: "wow_bnb",
-        expiresIn: '1m'
-      });
+      const jwtToken = this.generateAuthToken(existingUser);
 
-      const refreshToken = generateJwt({
-        urs_id: existingUser.userEmail
-      }, {
-        issuer: "wow_bnb",
-        expiresIn: '1h'
-      })
+      const refreshToken = this.generateRefreshToken(existingUser);
 
       return { access_token: jwtToken, refresh_token: refreshToken };
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async refreshToken(refreshtoken: string) {
+    try {
+      if (!isTokenValid(refreshtoken)) {
+        throw new CustomError(ErrorMap.AUTH_FAILED)
+      }
+
+      console.log("Called");
+      const tokenData = getTokenData(refreshtoken) as any;
+      const existing_user = await this.userProvider.findUserByUsername(tokenData?.usr_id);
+
+      const accesToken = this.generateAuthToken(existing_user);
+
+      const refreshToken = this.generateRefreshToken(existing_user);
+
+      console.log({refreshToken, accesToken});
+
+      return {
+        access_token: accesToken,
+        refresh_token: refreshToken
+      }
+
+    } catch (error) {
+      console.log(error);
       throw error;
     }
   }

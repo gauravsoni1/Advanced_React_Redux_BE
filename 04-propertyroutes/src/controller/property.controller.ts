@@ -14,7 +14,8 @@ export class PropertyController {
     async createProperty(req, res) {
         try {
             const { body } = req;
-            const response = await this.propertyService.createProperty(body);
+            const usr_id = req?.usr_id;
+            const response = await this.propertyService.createProperty({ ...body, createdBy: usr_id });
 
             const apiResp = ApiResponse.success(response, 201, "User Signed up");
             res.status(apiResp.status).json(apiResp);

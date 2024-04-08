@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const ListingsAndReviewsSchema = new Schema({
+    createdBy: { type: String, required: false },
     name: String,
     summary: String,
     space: String,
