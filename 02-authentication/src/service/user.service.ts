@@ -61,7 +61,7 @@ export class UserService {
         expiresIn: '1h'
       })
 
-      return { access_token: jwtToken, refresh_token: refreshToken };
+      return { access_token: jwtToken, refresh_token: refreshToken, usr_id: existingUser.userEmail };
     } catch (error) {
       throw error;
     }
