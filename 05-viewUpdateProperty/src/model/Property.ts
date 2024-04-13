@@ -14,6 +14,10 @@ const ListingsAndReviewsSchema = new Schema({
     images: {
         thumbnail_url: { type: String, required: false },
         picture_url: { type: String, required: false }
+    },
+    price: String,
+    review_score: {
+        review_scores_rating: Number
     }
 }, {
     collection: "listingsAndReviewsCustom",
