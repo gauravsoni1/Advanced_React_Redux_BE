@@ -60,4 +60,37 @@ export class TodoController {
       res.status(apiResp.status).json(apiResp);
     }
   }
+
+  async updateTodo(req, res) {
+    try {
+      const { todo_id } = req.params;
+      const { val, isDone } = req.body;
+
+      const searchResult = find(this.todo, { 'id': parseInt(todo_id) });
+
+      if (searchResult) {
+        this.todo = [...this.todo.filter((todo) => todo.id !== parseInt(todo_id)), { id: searchResult.id, val: val, isDone: isDone }];
+      }
+
+      const apiResp = ApiResponse.success(this.todo, 200, "Todo List");
+      res.status(apiResp.status).json(apiResp);
+    } catch (error) {
+      const apiResp = ApiResponse.error(error);
+      res.status(apiResp.status).json(apiResp);
+    }
+  }
+
+  async deleteTodo(req, res) {
+    try {
+      const { todo_id } = req.params;
+
+      this.todo = [...this.todo.filter((todo) => todo.id !== parseInt(todo_id))];
+
+      const apiResp = ApiResponse.success(this.todo, 200, "Todo removed from list");
+      res.status(apiResp.status).json(apiResp);
+    } catch (error) {
+      const apiResp = ApiResponse.error(error);
+      res.status(apiResp.status).json(apiResp);
+    }
+  }
 }

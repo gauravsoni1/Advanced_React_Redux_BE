@@ -10,7 +10,8 @@ export class TodoRoutes {
     this.router.post('/', todoController.createTodo.bind(todoController));
     this.router.get('/list', todoController.getTodoList.bind(todoController));
     this.router.get('/:todo_id', todoController.getTodoById.bind(todoController));
-
+    this.router.put('/:todo_id', todoController.updateTodo.bind(todoController));
+    this.router.delete('/:todo_id', todoController.deleteTodo.bind(todoController));
     return this.router;
   }
 }

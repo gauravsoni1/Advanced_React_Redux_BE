@@ -5,7 +5,7 @@ import * as CORS from 'cors';
 import { TodoRoutes } from './routes/todo.routes';
 
 const app = express();
-app.use(CORS({ origin: "http://localhost:5174" }));
+app.use(CORS({ origin: "*" }));
 
 app.use(bodyParser.json());
 
