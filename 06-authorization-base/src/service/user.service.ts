@@ -35,9 +35,28 @@ export class UserService {
     }
   }
 
+  async addUser(username: string, password: string, org_id: string) {
+    try {
+
+      const existingUser = await this.userProvider.findUserByUsername(username);
+
+      if (existingUser) {
+        throw new CustomError(ErrorMap.USER_EXIST);
+      }
+
+      const encryptedPassword = encryptPassword(password);
+
+      const response = this.userProvider.addUser(username, encryptedPassword, org_id);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   private generateAuthToken(existingUser: User) {
     return generateJwt({
-      usr_id: existingUser.userEmail
+      usr_id: existingUser.userEmail,
+      org_id: existingUser.orgId
     }, {
       issuer: sharedConfig.jwt.issuer,
       expiresIn: '1m'
@@ -71,7 +90,7 @@ export class UserService {
 
       const refreshToken = this.generateRefreshToken(existingUser);
 
-      return { access_token: jwtToken, refresh_token: refreshToken, usr_id: existingUser.userEmail };
+      return { access_token: jwtToken, refresh_token: refreshToken, usr_id: existingUser.userEmail, org_id: existingUser.orgId };
     } catch (error) {
       throw error;
     }

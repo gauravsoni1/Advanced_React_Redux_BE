@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import sharedConfig from '../config/shared.config';
 import { CustomError, ErrorMap } from './customError';
+import { uuid } from 'uuidv4';
 
 export const encryptPassword = (password: string) => {
     const encryptedPassword = bcrypt.hashSync(password, 10);
@@ -32,4 +33,8 @@ export const isTokenValid = (token: string) => {
 
 export const getTokenData = (token: string) => {
     return jwt.decode(token);
+}
+
+export const generateOrgId = () => {
+    return `org_${uuid()}`
 }

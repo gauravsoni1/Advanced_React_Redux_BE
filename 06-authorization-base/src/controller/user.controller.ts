@@ -30,6 +30,23 @@ export class UserController {
     }
   }
 
+  async addUser(req, res) {
+    try {
+      const { username, password } = req.body;
+      const { org_id } = req;
+
+      schemaValidation(createUserValidation, req.body);
+
+      const resp = await this.userService.addUser(username, password, org_id);
+
+      const apiResp = ApiResponse.success(resp, 201, "User Signed up");
+      res.status(apiResp.status).json(apiResp);
+    } catch (error) {
+      const apiResp = ApiResponse.error(error);
+      res.status(apiResp.status).json(apiResp);
+    }
+  }
+
   async signin(req, res) {
     console.log("Called");
 
