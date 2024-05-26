@@ -8,9 +8,9 @@ export const authenticateRequest = (req, resp, next) => {
     try {
         // Valiate the request , check for the token
         const token = req.get("token");
-        // if (!token || !isTokenValid(token)) {
-        //     throw new CustomError(ErrorMap.FORBIDDEN);
-        // }
+        if (!token || !isTokenValid(token)) {
+            throw new CustomError(ErrorMap.FORBIDDEN);
+        }
 
         const tokenData = jwt.decode(token) as any;
         req.usr_id = tokenData.usr_id;

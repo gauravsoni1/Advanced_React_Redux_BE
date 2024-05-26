@@ -1,3 +1,4 @@
+import { Roles } from '../const/permissions';
 import UserModel from '../model/User';
 import { generateOrgId } from '../utility/shared';
 
@@ -17,7 +18,8 @@ export class UserProvider {
       const userData = new UserModel({
         userEmail: username,
         userPassword: password,
-        orgId: generateOrgId()
+        orgId: generateOrgId(),
+        role: Roles.ADMIN
       });
 
       const resp = await userData.save();
@@ -28,12 +30,13 @@ export class UserProvider {
     }
   }
 
-  async addUser(username: string, password: string, org_id: string) {
+  async addUser(username: string, password: string, org_id: string, role: Roles) {
     try {
       const userData = new UserModel({
         userEmail: username,
         userPassword: password,
-        orgId: org_id
+        orgId: org_id,
+        role: role
       });
 
       const resp = await userData.save();

@@ -1,4 +1,5 @@
 import sharedConfig from '../config/shared.config';
+import { Roles } from '../const/permissions';
 import { User } from '../model/User';
 import { UserProvider } from '../provider/user.provider';
 
@@ -35,7 +36,7 @@ export class UserService {
     }
   }
 
-  async addUser(username: string, password: string, org_id: string) {
+  async addUser(username: string, password: string, org_id: string, role: Roles) {
     try {
 
       const existingUser = await this.userProvider.findUserByUsername(username);
@@ -46,7 +47,7 @@ export class UserService {
 
       const encryptedPassword = encryptPassword(password);
 
-      const response = this.userProvider.addUser(username, encryptedPassword, org_id);
+      const response = this.userProvider.addUser(username, encryptedPassword, org_id, role);
       return response;
     } catch (error) {
       throw error;
@@ -56,10 +57,11 @@ export class UserService {
   private generateAuthToken(existingUser: User) {
     return generateJwt({
       usr_id: existingUser.userEmail,
-      org_id: existingUser.orgId
+      org_id: existingUser.orgId,
+      usr_role: existingUser.role
     }, {
       issuer: sharedConfig.jwt.issuer,
-      expiresIn: '1m'
+      expiresIn: '30m'
     });
   }
 
