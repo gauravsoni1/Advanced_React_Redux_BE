@@ -1,5 +1,5 @@
 import sharedConfig from '../config/shared.config';
-import { Roles } from '../const/permissions';
+import { Roles, permissionMap } from '../const/permissions';
 import { User } from '../model/User';
 import { UserProvider } from '../provider/user.provider';
 
@@ -92,7 +92,14 @@ export class UserService {
 
       const refreshToken = this.generateRefreshToken(existingUser);
 
-      return { access_token: jwtToken, refresh_token: refreshToken, usr_id: existingUser.userEmail, org_id: existingUser.orgId };
+      return {
+        access_token: jwtToken,
+        refresh_token: refreshToken,
+        usr_id: existingUser.userEmail,
+        org_id: existingUser.orgId,
+        usr_role: existingUser.role,
+        usr_permissions: permissionMap[existingUser.role]
+      };
     } catch (error) {
       throw error;
     }
@@ -112,7 +119,7 @@ export class UserService {
 
       const refreshToken = this.generateRefreshToken(existing_user);
 
-      console.log({refreshToken, accesToken});
+      // console.log({ refreshToken, accesToken });
 
       return {
         access_token: accesToken,
