@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { ApiResponse } from '../utility/apiResponse';
 import { find } from 'lodash';
+import { io } from '../service/socketio.service';
 
 export type Todo = {
   id: number;
@@ -41,6 +42,9 @@ export class TodoController {
       this.todo.push(newTodo);
 
       this.updateSSEClients();
+
+      // Publish Socket Event (todo-created)
+      io.emit('todo-created', newTodo);
 
       const apiResp = ApiResponse.success(newTodo, 201, "");
       res.status(apiResp.status).json(apiResp);

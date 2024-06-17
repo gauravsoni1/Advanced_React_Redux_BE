@@ -1,7 +1,7 @@
-import app from './app';
 import config from './config/config';
+import { server } from './service/socketio.service';
 
-const server = app.listen(config.port, () => {
+server.listen(config.port, () => {
   console.log(`Listening to port ${config.port}`);
 
   console.log(
