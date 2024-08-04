@@ -54,11 +54,12 @@ export class UserService {
     }
   }
 
-  private generateAuthToken(existingUser: User) {
+  private generateAuthToken(existingUser: User, fingerprint: string) {
     return generateJwt({
       usr_id: existingUser.userEmail,
       org_id: existingUser.orgId,
-      usr_role: existingUser.role
+      usr_role: existingUser.role,
+      fingerprint
     }, {
       issuer: sharedConfig.jwt.issuer,
       expiresIn: '30m'
@@ -74,7 +75,7 @@ export class UserService {
     });
   }
 
-  async signIn(username: string, password: string) {
+  async signIn(username: string, password: string, fingerprint: string) {
     try {
 
       const existingUser = await this.userProvider.findUserByUsername(username);
@@ -88,7 +89,7 @@ export class UserService {
         throw new CustomError(ErrorMap.INVALID_SIGNIN);
       }
 
-      const jwtToken = this.generateAuthToken(existingUser);
+      const jwtToken = this.generateAuthToken(existingUser, fingerprint);
 
       const refreshToken = this.generateRefreshToken(existingUser);
 
@@ -115,7 +116,7 @@ export class UserService {
       const tokenData = getTokenData(refreshtoken) as any;
       const existing_user = await this.userProvider.findUserByUsername(tokenData?.usr_id);
 
-      const accesToken = this.generateAuthToken(existing_user);
+      const accesToken = this.generateAuthToken(existing_user, null);
 
       const refreshToken = this.generateRefreshToken(existing_user);
 

@@ -1,5 +1,4 @@
-import { Response } from 'express';
-import { addUserValidation, createUserValidation, schemaValidation } from '../const/validations';
+import { addUserValidation, createUserValidation, schemaValidation, signinValidation } from '../const/validations';
 import { UserService } from '../service/user.service';
 import { ApiResponse } from '../utility/apiResponse';
 import { CustomError, ErrorMap } from '../utility/customError';
@@ -48,14 +47,12 @@ export class UserController {
   }
 
   async signin(req, res) {
-    console.log("Called");
-
     try {
-      const { username, password } = req.body;
+      const { username, password, fingerprint } = req.body;
 
-      schemaValidation(createUserValidation, req.body);
+      schemaValidation(signinValidation, req.body);
 
-      const resp = await this.userService.signIn(username, password);
+      const resp = await this.userService.signIn(username, password, fingerprint);
 
       const apiResp = ApiResponse.success(resp, 200, "User Signed In");
       res.status(apiResp.status).json(apiResp);

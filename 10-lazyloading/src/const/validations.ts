@@ -7,6 +7,12 @@ export const schemaValidation = (schema: joi.ObjectSchema<any>, data: Record<str
   }
 };
 
+export const signinValidation = joi.object({
+  username: joi.string().required().email(),
+  password: joi.string().min(2),
+  fingerprint: joi.string().required()
+});
+
 export const createUserValidation = joi.object({
   username: joi.string().required().email(),
   password: joi.string().min(2),
