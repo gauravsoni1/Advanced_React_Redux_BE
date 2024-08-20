@@ -7,53 +7,54 @@
 	},
 	"item": [
 		{
-			"name": "refreshToken",
+			"name": "health",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Token",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3JfaWQiOiJnYXVyYXZzc0BnbWFpbC5jb20iLCJpYXQiOjE3MDA5NzUxMDYsImV4cCI6MTcwMDk3ODcwNiwiaXNzIjoiMTIzMTIzMTIzIn0.9Q9dCegwupShrniyDNisFe0EaE_cgXvKhh3Jp1pOTLI",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"url": {
-					"raw": "localhost:4000/user/protected-test",
+					"raw": "localhost:4000/user/token/refresh/:refresh_token",
 					"host": [
 						"localhost"
 					],
 					"port": "4000",
 					"path": [
 						"user",
-						"protected-test"
+						"token",
+						"refresh",
+						":refresh_token"
+					],
+					"variable": [
+						{
+							"key": "refresh_token",
+							"value": ""
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "SignIn",
+			"name": "refreshToken",
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"username\": \"gaurav@gmail.com\",\n    \"password\": \"123\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "localhost:4000/user/signin",
+					"raw": "localhost:4000/user/token/refresh/:refresh_token",
 					"host": [
 						"localhost"
 					],
 					"port": "4000",
 					"path": [
 						"user",
-						"signin"
+						"token",
+						"refresh",
+						":refresh_token"
+					],
+					"variable": [
+						{
+							"key": "refresh_token",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -66,7 +67,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"username\": \"gaurav@gmail.com\",\n    \"password\": \"123\"\n}",
+					"raw": "{\n    \"username\": \"gaurav5@gmail.com\",\n    \"password\": \"123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,13 +89,13 @@
 			"response": []
 		},
 		{
-			"name": "Property List",
+			"name": "SignIn",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"raw": "{\n    \"username\": \"admin@gmail.com\",\n    \"password\": \"123\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -102,67 +103,32 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:4000/property/list",
+					"raw": "localhost:4000/user/signin",
 					"host": [
 						"localhost"
 					],
 					"port": "4000",
 					"path": [
-						"property",
-						"list"
+						"user",
+						"signin"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Add Product",
+			"name": "Add User",
 			"request": {
 				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "localhost:4000/product",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"product"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Add Product SSE",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"url": {
-					"raw": "localhost:4000/product/sse",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"product",
-						"sse"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "commerceList",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3JfaWQiOiJnYXVyYXY2QGdtYWlsLmNvbSIsIm9yZ19pZCI6Im9yZ19lOWU4YzRmNy00NzhmLTQ0NTYtYWQ4Ni1kNDJhNDAyYTA1ZGEiLCJpYXQiOjE3MTQ4OTgxNTYsImV4cCI6MTcxNDg5ODIxNiwiaXNzIjoid293X2JuYiJ9.p6hTWYvQw5FDjCeu3AiAD0ZloYnjDINN6mozQZEHzCk"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"raw": "{\n    \"username\": \"joel1@gmail.com\",\n    \"password\": \"123\",\n    \"role\": \"editor\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -170,76 +136,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:4000/property/list",
+					"raw": "localhost:4000/user/add_user",
 					"host": [
 						"localhost"
 					],
 					"port": "4000",
 					"path": [
-						"property",
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "notificationList",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:4000/property/list",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"property",
-						"list"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ValidateRecaptcha",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:4000/property/list",
-					"host": [
-						"localhost"
-					],
-					"port": "4000",
-					"path": [
-						"property",
-						"list"
+						"user",
+						"add_user"
 					]
 				}
 			},
@@ -251,14 +155,14 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "Token",
-						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3JfaWQiOiJ1c3JfNDkxOTRiMWItODI0Zi00ZTNiLTg1ZTUtN2NhNzBiYWJhMGU1IiwidXNyX2VtYWkiOiJnYXVyYXZAZ21haWwuY29tIiwib3JnX2lkIjoib3JnXzk4MWI1MmNhLTE2OTgtNDVhYy05NjEzLTA1YWQ2OTc5ZjkwOCIsInVzcl9yb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2MjI1NTUsImV4cCI6MTcwODYyNjE1NSwiaXNzIjoiMTIzMTIzMTIzIn0.jrqArcWDhmMHX16B68Ze_rKVrcNGjXUqBXgLPSdboLs",
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3JfaWQiOiJnYXVyYXYzQGdtYWlsLmNvbSIsImlhdCI6MTcxMjczNzY1MCwiZXhwIjoxNzEyNzM3NzEwLCJpc3MiOiJ3b3dfYm5iIn0.uwQeAdPf79tAQr_IDo7Irw0zF6YcwCp0fFeGFbfrU5A",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"name\": \"The Villa #3\",\n    \"summary\": \"This is a super luxurious villa\",\n    \"space\": \"apartment\",\n    \"description\": \"walk 100 meters, shopping, eating is very convenient.\",\n    \"neighborhood_overview\": \"Electric Street, Mong Kok near there (Sai Yeung Choi Street)\",\n    \"notes\": \"After check-in time is 14:00, check out time is 12:00\",\n    \"transit\": \"1 avaiable parking lot in the condominium.\"\n}",
+					"raw": "{\n    \"name\": \"Fortune Tower\",\n    \"summary\": \"This is a super luxurious villa\",\n    \"space\": \"apartment\",\n    \"description\": \"walk 100 meters, shopping, eating is very convenient.\",\n    \"neighborhood_overview\": \"Electric Street, Mong Kok near there (Sai Yeung Choi Street)\",\n    \"notes\": \"After check-in time is 14:00, check out time is 12:00\",\n    \"transit\": \"1 avaiable parking lot in the condominium.\",\n    \"image\": \"https://cf.bstatic.com/xdata/images/hotel/max1024x768/295090917.jpg?k=d17621b71b0eaa0c7a37d8d8d02d33896cef75145f61e7d96d296d88375a7d39&o=&hp=1\",\n    \"price\": \"333.00\",\n    \"review_score\": {\n        \"review_scores_rating\": 82\n    }\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -273,6 +177,286 @@
 					"port": "4000",
 					"path": [
 						"property"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Property",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Token",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3JfaWQiOiJ1c3JfNDkxOTRiMWItODI0Zi00ZTNiLTg1ZTUtN2NhNzBiYWJhMGU1IiwidXNyX2VtYWkiOiJnYXVyYXZAZ21haWwuY29tIiwib3JnX2lkIjoib3JnXzk4MWI1MmNhLTE2OTgtNDVhYy05NjEzLTA1YWQ2OTc5ZjkwOCIsInVzcl9yb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDg2MjI1NTUsImV4cCI6MTcwODYyNjE1NSwiaXNzIjoiMTIzMTIzMTIzIn0.jrqArcWDhmMHX16B68Ze_rKVrcNGjXUqBXgLPSdboLs",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\": \"Super Villa\",\n    \"summary\": \"This is a super luxurious villa\",\n    \"space\": \"apartment\",\n    \"description\": \"walk 100 meters, shopping, eating is very convenient.\",\n    \"neighborhood_overview\": \"Electric Street, Mong Kok near there (Sai Yeung Choi Street)\",\n    \"notes\": \"After check-in time is 14:00, check out time is 12:00\",\n    \"transit\": \"1 avaiable parking lot in the condominium.\",\n    \"images\": {\n        \"thumbnail_url\": \"https://cf.bstatic.com/xdata/images/hotel/max1024x768/295090917.jpg?k=d17621b71b0eaa0c7a37d8d8d02d33896cef75145f61e7d96d296d88375a7d39&o=&hp=1\",\n        \"picture_url\": \"https://cf.bstatic.com/xdata/images/hotel/max1024x768/295090917.jpg?k=d17621b71b0eaa0c7a37d8d8d02d33896cef75145f61e7d96d296d88375a7d39&o=&hp=1\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/property",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"property"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/property/list",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"property",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search property",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/property/search/:name",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"property",
+						"search",
+						":name"
+					],
+					"variable": [
+						{
+							"key": "name",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Notification",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3JfaWQiOiJqb2VsMkBnbWFpbC5jb20iLCJvcmdfaWQiOiJvcmdfZTllOGM0ZjctNDc4Zi00NDU2LWFkODYtZDQyYTQwMmEwNWRhIiwidXNyX3JvbGUiOiJlZGl0b3IiLCJpYXQiOjE3MTg2MTk3MTgsImV4cCI6MTcxODYyMTUxOCwiaXNzIjoid293X2JuYiJ9.MBbJZfMqYHT5-5DXqywzQGiWQ4YTkS3DeWOBQddsMTI"
+					}
+				],
+				"url": {
+					"raw": "localhost:4000/notification/list",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"notification",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Recaptcha",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/property/list",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"property",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add TODO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"val\": \"test TODO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/todo",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"todo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Todo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"val\": \"test TODO\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/todo/:todo_id",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"todo",
+						":todo_id"
+					],
+					"variable": [
+						{
+							"key": "todo_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Todo List",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/todo/list",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"todo",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Todo By ID",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"limit\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:4000/todo/:todo_id",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"todo",
+						":todo_id"
+					],
+					"variable": [
+						{
+							"key": "todo_id",
+							"value": "1713004839996"
+						}
 					]
 				}
 			},

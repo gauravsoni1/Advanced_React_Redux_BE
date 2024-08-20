@@ -25,11 +25,12 @@ export class TodoController {
         val,
         isDone: false
       };
-
-      this.todo.push(newTodo);
-
-      const apiResp = ApiResponse.success(newTodo, 201, "");
-      res.status(apiResp.status).json(apiResp);
+      
+      // setTimeout(() => {
+        this.todo.push(newTodo);
+        const apiResp = ApiResponse.success(newTodo, 201, "");
+        res.status(apiResp.status).json(apiResp);
+      // }, 100);
     } catch (error) {
       const apiResp = ApiResponse.error(error);
       res.status(apiResp.status).json(apiResp);
